@@ -358,7 +358,7 @@ export default function Home() {
                   <div style={{ fontSize: '28px', fontWeight: '800', color: (informe.datosDuros?.muletillasDetectadas || 0) > 3 ? '#F59E0B' : '#10B981', marginTop: '4px' }}>{informe.datosDuros?.muletillasDetectadas || 0}</div>
                   {informe.datosDuros?.muletillasLista && informe.datosDuros.muletillasLista.length > 0 && (
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '8px' }}>
-                      {informe.datosDuros.muletillasLista.map((m: string, i: number) => <span key={i} style={{ background: '#FEF3C7', color: '#B45309', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', fontWeight: '600' }}>"{m}"</span>)}
+                      {informe.datosDuros.muletillasLista.map((m: string, i: number) => <span key={i} style={{ background: '#FEF3C7', color: '#B45309', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', fontWeight: '600' }}>&ldquo;{m}&rdquo;</span>)}
                     </div>
                   )}
                 </div>
@@ -501,7 +501,7 @@ export default function Home() {
                     <div key={idx} style={{ padding: '12px', background: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6', display: 'flex', gap: '16px' }}>
                       <div style={{ fontWeight: '700', color: '#2563EB', fontSize: '13px', minWidth: '40px' }}>{item.tiempoAproximado}</div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <div style={{ fontSize: '13px', color: '#475569', fontStyle: 'italic' }}>"{item.evidenciaLiteral}"</div>
+                        <div style={{ fontSize: '13px', color: '#475569', fontStyle: 'italic' }}>&ldquo;{item.evidenciaLiteral}&rdquo;</div>
                         <div style={{ fontSize: '13px', color: '#1E293B' }}>{item.diagnostico}</div>
                       </div>
                     </div>

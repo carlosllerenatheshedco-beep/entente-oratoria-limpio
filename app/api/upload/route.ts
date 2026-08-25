@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://cezgntxyurzgctwwvmib.supabase.co';
-const supabaseKey = 'sb_publishable_bd2aLD19H3XlqK_yZ5p-rQ_gGP6mXtc';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://cezgntxyurzgctwwvmib.supabase.co';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_bd2aLD19H3XlqK_yZ5p-rQ_gGP6mXtc';
 
 export async function POST(req: Request) {
   try {

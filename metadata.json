@@ -1,0 +1,11 @@
+{
+  "name": "Entente - Oratoria Ejecutiva",
+  "description": "Plataforma de evaluación de oratoria ejecutiva e inteligencia corporal con análisis de voz, postura y persuasión.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
