@@ -4,17 +4,10 @@ import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
 
-function getOpenAIClient() {
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    throw new Error('OPENAI_API_KEY no está configurada. Por favor, añade tu clave de OpenAI en las variables de entorno.');
-  }
-  return new OpenAI({ apiKey });
-}
-
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 // VOLVEMOS A LA URL SEGURA, SIN PROCESS.ENV QUE LA ROMPA
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://cezgntxyurzgctwwvmib.supabase.co';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_bd2aLD19H3XlqK_yZ5p-rQ_gGP6mXtc';
+const supabaseUrl = 'https://cezgntxyurzgctwwvmib.supabase.co';
+const supabaseKey = 'sb_publishable_bd2aLD19H3XlqK_yZ5p-rQ_gGP6mXtc';
 
 export async function POST(req: Request) {
   let tempAudioPath = '';
@@ -38,7 +31,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Faltan datos de análisis.' }, { status: 400 });
     }
 
-    const openai = getOpenAIClient();
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { data: fileData, error: downloadError } = await supabase.storage
@@ -294,6 +286,13 @@ export async function POST(req: Request) {
     
     return NextResponse.json({ success: true, data: result });
   } catch (err: any) {
+    try {
+      if (fileNameGlobal) {
+        const cleanupSupabase = createClient(supabaseUrl, supabaseKey);
+        await cleanupSupabase.storage.from('audios-oratoria').remove([fileNameGlobal]);
+      }
+    } catch {}
+    try { if (tempDir && fs.existsSync(tempDir)) fs.rmSync(tempDir, { recursive: true, force: true }); } catch {}
     console.error("Error IA:", err);
     return NextResponse.json({ error: `Fallo: ${err.message}` }, { status: 500 });
   }
